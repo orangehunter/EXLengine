@@ -116,7 +116,8 @@ implements SurfaceHolder.Callback{
 				Graphic.drawPic(canvas, x, btm_first+btm_dis*3, 400, 0, 255, paint);
 			}
 
-			Graphic.drawCircle(canvas,Color.BLUE,100,100,100,255,paint);
+			Graphic.drawCircle(canvas,Color.BLACK,1280-110,110,110,255,paint);
+			Graphic.drawCircle(canvas,Color.BLUE,1280-110,110,100,255,paint);
 			//===============================================================================
 			r_btn.setBottomTo(false);
 			s_btn.setBottomTo(false);
