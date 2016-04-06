@@ -155,7 +155,13 @@ public class Graphic {
 	}
     public static void drawRect(Canvas canvas,int color,int start_x,int start_y,int end_x,int end_y,Paint paint){
         paint.setColor(color);
-        canvas.drawRect(Coordinate.CoordinateX(start_x), Coordinate.CoordinateY(start_y), Coordinate.CoordinateX(end_x),Coordinate.CoordinateY( end_y), paint);
+        canvas.drawRect(Coordinate.CoordinateX(start_x), Coordinate.CoordinateY(start_y), Coordinate.CoordinateX(end_x), Coordinate.CoordinateY(end_y), paint);
+        paint.reset();
+    }
+    public static void drawCircle(Canvas canvas,int color,int center_x,int center_y,int radius,int alpha,Paint paint){
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+        canvas.drawCircle(Coordinate.CoordinateX(center_x),Coordinate.CoordinateY(center_y),Coordinate.CoordinateX(radius),paint);
         paint.reset();
     }
     public static void drawText(Canvas canvas,String st,int start_x,int start_y,int color,int size,Paint paint){
