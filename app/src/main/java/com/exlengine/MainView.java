@@ -4,6 +4,7 @@ package com.exlengine;
 
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,10 +21,10 @@ import android.view.SurfaceView;
 public class MainView extends SurfaceView
 implements SurfaceHolder.Callback{
 	//===============宣告======================
-	Bitmap how,r,rb,s,sb,t,tb,x,xb;
+	Bitmap how,r,s,t,x,bb;
 	int rot=0;
 	int al=0;
-	Bottom r_btn,s_btn,t_btn,x_btn;
+	Botton r_btn,s_btn,t_btn,x_btn;
 	//========================================
 	SparseArray<PointF> mActivePointers=new SparseArray<PointF>();
 	SparseArray<Integer> btn_pointer=new SparseArray<Integer>();
@@ -39,29 +40,25 @@ implements SurfaceHolder.Callback{
 
 
 	}
-	public Bitmap LoadBitmap(int r){
-		return BitmapFactory.decodeResource(getResources(), r);
-	}
+
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		paint = new Paint();//建立畫筆
 		paint.setAntiAlias(true);//開啟抗鋸齒
 		//=============圖片載入==================
-		how=Graphic.bitSize(LoadBitmap(R.drawable.ic_launcher),200, 200);
-		int bottomSize=180;
-		int btm_first=130,btm_dis=270;
-		r=Graphic.bitSize(LoadBitmap(R.drawable.btn_circle), bottomSize, bottomSize);
-		s=Graphic.bitSize(LoadBitmap(R.drawable.btn_square), bottomSize, bottomSize);
-		t=Graphic.bitSize(LoadBitmap(R.drawable.btn_triangle), bottomSize, bottomSize);
-		x=Graphic.bitSize(LoadBitmap(R.drawable.btn_x), bottomSize, bottomSize);
-		rb=Graphic.bitSize(LoadBitmap(R.drawable.grey_circle), bottomSize, bottomSize);
-		sb=Graphic.bitSize(LoadBitmap(R.drawable.grey_square), bottomSize, bottomSize);
-		tb=Graphic.bitSize(LoadBitmap(R.drawable.grey_tirangle), bottomSize, bottomSize);
-		xb=Graphic.bitSize(LoadBitmap(R.drawable.grey_x), bottomSize, bottomSize);
-		r_btn=new Bottom(activity,rb,r,btm_first,640);
-		s_btn=new Bottom(activity,sb,s,btm_first+btm_dis,640);
-		t_btn=new Bottom(activity,tb,t,btm_first+btm_dis+btm_dis,640);
-		x_btn=new Bottom(activity,xb,x,btm_first+btm_dis+btm_dis+btm_dis,640);
+		Resources rs=activity.getResources();//取得activity資源
+		how=Graphic.LoadBitmap(rs,R.mipmap.ic_launcher,200,200);
+		int bottonSize=180;
+		int btn_first=130,btm_dis=270;
+		r=Graphic.LoadBitmap(rs,R.drawable.bottom_round,bottonSize,bottonSize);
+		s=Graphic.LoadBitmap(rs, R.drawable.bottom_square, bottonSize, bottonSize);
+		t=Graphic.LoadBitmap(rs, R.drawable.bottom_trangle, bottonSize, bottonSize);
+		x=Graphic.LoadBitmap(rs, R.drawable.bottom_x, bottonSize, bottonSize);
+		bb=Graphic.LoadBitmap(rs, R.drawable.bottom_pushed, bottonSize, bottonSize);
+		r_btn=new Botton(activity,bb,r,btn_first,640);
+		s_btn=new Botton(activity,bb,s,btn_first+btm_dis,640);
+		t_btn=new Botton(activity,bb,t,btn_first+btm_dis+btm_dis,640);
+		x_btn=new Botton(activity,bb,x,btn_first+btm_dis+btm_dis+btm_dis,640);
 
 		//=====================================
 		Constant.Flag=true;
@@ -118,6 +115,8 @@ implements SurfaceHolder.Callback{
 			if(x_btn.getBottom()){
 				Graphic.drawPic(canvas, x, btm_first+btm_dis*3, 400, 0, 255, paint);
 			}
+
+			Graphic.drawCircle(canvas,Color.BLUE,100,100,100,255,paint);
 			//===============================================================================
 			r_btn.setBottomTo(false);
 			s_btn.setBottomTo(false);
@@ -207,9 +206,18 @@ implements SurfaceHolder.Callback{
 
 	}
 
-	public void surfaceDestroyed(SurfaceHolder arg0) {//銷毀時被呼叫
+	public void surfaceDestroyed(SurfaceHolder arg0)	{//銷毀時被呼叫
+		how.recycle();
+		r.recycle();
+		s.recycle();
+		t.recycle();
+		x.recycle();
+		bb.recycle();
+
+		r_btn.recycle();
+		s_btn.recycle();
+		t_btn.recycle();
+		x_btn.recycle();
 		Constant.Flag=false;
 	}
-
-
 }

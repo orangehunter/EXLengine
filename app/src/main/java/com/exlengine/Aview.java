@@ -40,7 +40,7 @@ implements SurfaceHolder.Callback{
 		paint = new Paint();//建立畫筆
 		paint.setAntiAlias(true);//開啟抗鋸齒
 		//=============圖片載入==================
-		how=Graphic.bitSize(LoadBitmap(R.drawable.ic_launcher),100, 100);
+		how=Graphic.bitSize(LoadBitmap(R.mipmap.ic_launcher),100, 100);
 		//=====================================
 		Constant.Flag=true;
 		//=============螢幕刷新=================================================
