@@ -20,7 +20,7 @@ import android.view.SurfaceView;
 @SuppressLint({ "ViewConstructor", "WrongCall", "ClickableViewAccessibility" })
 public class MainView extends SurfaceView
 implements SurfaceHolder.Callback{
-	//===============«Å§i======================
+	//===============å®£å‘Š======================
 	Bitmap how,r,s,t,x,bb;
 	int rot=0;
 	int al=0;
@@ -28,7 +28,7 @@ implements SurfaceHolder.Callback{
 	//========================================
 	SparseArray<PointF> mActivePointers=new SparseArray<PointF>();
 	SparseArray<Integer> btn_pointer=new SparseArray<Integer>();
-	Paint paint;			//µeµ§ªº°Ñ¦Ò
+	Paint paint;			//ç•«ç­†çš„åƒè€ƒ
 	MainActivity activity;
 	boolean deTouchJump=true;
 	int pointerCount=0;
@@ -36,17 +36,17 @@ implements SurfaceHolder.Callback{
 	public MainView(MainActivity mainActivity) {
 		super(mainActivity);
 		this.activity = mainActivity;
-		this.getHolder().addCallback(this);//³]©w¥Í©R©P´Á¦^½Õ±µ¤fªº¹ê²{ªÌ
+		this.getHolder().addCallback(this);//è¨­å®šç”Ÿå‘½å‘¨æœŸå›èª¿æ¥å£çš„å¯¦ç¾è€…
 
 
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		paint = new Paint();//«Ø¥ßµeµ§
-		paint.setAntiAlias(true);//¶}±Ò§Ü¿÷¾¦
-		//=============¹Ï¤ù¸ü¤J==================
-		Resources rs=activity.getResources();//¨ú±oactivity¸ê·½
+		paint = new Paint();//å»ºç«‹ç•«ç­†
+		paint.setAntiAlias(true);//é–‹å•ŸæŠ—é‹¸é½’
+		//=============åœ–ç‰‡è¼‰å…¥==================
+		Resources rs=activity.getResources();//å–å¾—activityè³‡æº
 		how=Graphic.LoadBitmap(rs,R.mipmap.ic_launcher,200,200);
 		int bottonSize=180;
 		int btn_first=130,btm_dis=270;
@@ -62,7 +62,7 @@ implements SurfaceHolder.Callback{
 
 		//=====================================
 		Constant.Flag=true;
-		//=============¿Ã¹õ¨ê·s=================================================
+		//=============è¢å¹•åˆ·æ–°=================================================
 		new Thread(){
 			@SuppressLint("WrongCall")
 			public void run()
@@ -75,7 +75,7 @@ implements SurfaceHolder.Callback{
 						e.printStackTrace();
 					}
 					SurfaceHolder myholder=MainView.this.getHolder();
-					Canvas canvas = myholder.lockCanvas();//¨ú±oµe¥¬
+					Canvas canvas = myholder.lockCanvas();//å–å¾—ç•«å¸ƒ
 					onDraw(canvas);
 					if(canvas != null){
 						myholder.unlockCanvasAndPost(canvas);
@@ -88,13 +88,13 @@ implements SurfaceHolder.Callback{
 	}
 	@SuppressLint("DrawAllocation")
 	@Override
-	protected void onDraw(Canvas canvas) {//­«·s©w¸qªºÃ¸¨î¤èªk
+	protected void onDraw(Canvas canvas) {//é‡æ–°å®šç¾©çš„ç¹ªåˆ¶æ–¹æ³•
 		if(canvas!=null){
 			super.onDraw(canvas);
-			canvas.clipRect(new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HIGHT));//¥u¦b¿Ã¹õ½d³ò¤ºÃ¸¨î¹Ï¤ù
-			canvas.drawColor(Color.WHITE);//¬É­±³]©w¬°¥Õ¦â
-			paint.setAntiAlias(true);	//¶}±Ò§Ü¿÷¾¦
-			//================================µe­±Ã¸»s========================================
+			canvas.clipRect(new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HIGHT));//åªåœ¨è¢å¹•ç¯„åœå…§ç¹ªåˆ¶åœ–ç‰‡
+			canvas.drawColor(Color.WHITE);//ç•Œé¢è¨­å®šç‚ºç™½è‰²
+			paint.setAntiAlias(true);	//é–‹å•ŸæŠ—é‹¸é½’
+			//================================ç•«é¢ç¹ªè£½========================================
 			r_btn.drawBtm(canvas, paint);
 			s_btn.drawBtm(canvas, paint);
 			t_btn.drawBtm(canvas, paint);
@@ -151,7 +151,7 @@ implements SurfaceHolder.Callback{
 		}
 	}
 	@Override
-	public boolean onTouchEvent(MotionEvent event){//Ä²±±¨Æ¥ó
+	public boolean onTouchEvent(MotionEvent event){//è§¸æ§äº‹ä»¶
 		pointerCount = event.getPointerCount();
 
 		// get pointer index from the event object
@@ -163,7 +163,7 @@ implements SurfaceHolder.Callback{
 		switch(event.getActionMasked())
 		{
 		case MotionEvent.ACTION_DOWN:
-		case MotionEvent.ACTION_POINTER_DOWN://«ö¤U
+		case MotionEvent.ACTION_POINTER_DOWN://æŒ‰ä¸‹
 			PointF f = new PointF();
 			f.x = event.getX(pointerIndex);
 			f.y = event.getY(pointerIndex);
@@ -207,7 +207,7 @@ implements SurfaceHolder.Callback{
 
 	}
 
-	public void surfaceDestroyed(SurfaceHolder arg0)	{//¾P·´®É³Q©I¥s
+	public void surfaceDestroyed(SurfaceHolder arg0)	{//éŠ·æ¯€æ™‚è¢«å‘¼å«
 		how.recycle();
 		r.recycle();
 		s.recycle();

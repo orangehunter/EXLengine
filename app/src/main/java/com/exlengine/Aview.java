@@ -15,20 +15,20 @@ import android.view.SurfaceView;
 @SuppressLint({ "ViewConstructor", "WrongCall" })
 public class Aview extends SurfaceView
 implements SurfaceHolder.Callback{
-	//===============«Å§i======================
+	//===============å®£å‘Š======================
 	Bitmap how;
 	int rot=0;
 	int al=0;
 	//========================================
-	int pointx;//Ä²±±¨ì¿Ã¹õªºx®y¼Ğ
-	int pointy;//Ä²±±¨ì¿Ã¹õªºy®y¼Ğ
-	Paint paint;			//µeµ§ªº°Ñ¦Ò
+	int pointx;//è§¸æ§åˆ°è¢å¹•çš„xåº§æ¨™
+	int pointy;//è§¸æ§åˆ°è¢å¹•çš„yåº§æ¨™
+	Paint paint;			//ç•«ç­†çš„åƒè€ƒ
 	MainActivity activity;
 
 	public Aview(MainActivity mainActivity) {
 		super(mainActivity);
 		this.activity = mainActivity;
-		this.getHolder().addCallback(this);//³]©w¥Í©R©P´Á¦^½Õ±µ¤fªº¹ê²{ªÌ
+		this.getHolder().addCallback(this);//è¨­å®šç”Ÿå‘½å‘¨æœŸå›èª¿æ¥å£çš„å¯¦ç¾è€…
 
 
 	}
@@ -37,13 +37,13 @@ implements SurfaceHolder.Callback{
 	}
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		paint = new Paint();//«Ø¥ßµeµ§
-		paint.setAntiAlias(true);//¶}±Ò§Ü¿÷¾¦
-		//=============¹Ï¤ù¸ü¤J==================
+		paint = new Paint();//å»ºç«‹ç•«ç­†
+		paint.setAntiAlias(true);//é–‹å•ŸæŠ—é‹¸é½’
+		//=============åœ–ç‰‡è¼‰å…¥==================
 		how=Graphic.bitSize(LoadBitmap(R.mipmap.ic_launcher),100, 100);
 		//=====================================
 		Constant.Flag=true;
-		//=============¿Ã¹õ¨ê·s=================================================
+		//=============è¢å¹•åˆ·æ–°=================================================
 		new Thread(){
 			@SuppressLint("WrongCall")
 			public void run()
@@ -56,7 +56,7 @@ implements SurfaceHolder.Callback{
 						e.printStackTrace();
 					}
 					SurfaceHolder myholder=Aview.this.getHolder();
-					Canvas canvas = myholder.lockCanvas();//¨ú±oµe¥¬
+					Canvas canvas = myholder.lockCanvas();//å–å¾—ç•«å¸ƒ
 					onDraw(canvas);
 					if(canvas != null){
 						myholder.unlockCanvasAndPost(canvas);
@@ -69,21 +69,21 @@ implements SurfaceHolder.Callback{
 	}
 	@SuppressLint("DrawAllocation")
 	@Override
-	protected void onDraw(Canvas canvas) {//­«·s©w¸qªºÃ¸¨î¤èªk
+	protected void onDraw(Canvas canvas) {//é‡æ–°å®šç¾©çš„ç¹ªåˆ¶æ–¹æ³•
 		if(canvas!=null){
 			super.onDraw(canvas);
-			canvas.clipRect(new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HIGHT));//¥u¦b¿Ã¹õ½d³ò¤ºÃ¸¨î¹Ï¤ù
-			canvas.drawColor(Color.WHITE);//¬É­±³]©w¬°¥Õ¦â
-			paint.setAntiAlias(true);	//¶}±Ò§Ü¿÷¾¦
-			//================================µe­±Ã¸»s========================================
-			Graphic.drawPic(canvas, how, 200, 100, 0, 255, paint);//Ã¸¹Ï½d¨Ò_µL¯S®Ä
+			canvas.clipRect(new Rect(0,0,Constant.SCREEN_WIDTH,Constant.SCREEN_HIGHT));//åªåœ¨è¢å¹•ç¯„åœå…§ç¹ªåˆ¶åœ–ç‰‡
+			canvas.drawColor(Color.WHITE);//ç•Œé¢è¨­å®šç‚ºç™½è‰²
+			paint.setAntiAlias(true);	//é–‹å•ŸæŠ—é‹¸é½’
+			//================================ç•«é¢ç¹ªè£½========================================
+			Graphic.drawPic(canvas, how, 200, 100, 0, 255, paint);//ç¹ªåœ–ç¯„ä¾‹_ç„¡ç‰¹æ•ˆ
 			
-			/*Graphic.drawPic(canvas, how, 200, 200, 0, al, paint);////Ã¸¹Ï½d¨Ò_³z©ú«×
+			/*Graphic.drawPic(canvas, how, 200, 200, 0, al, paint);////ç¹ªåœ–ç¯„ä¾‹_é€æ˜åº¦
 			al+=5;
 			if(al>=255)
 				al=0;
 			
-			Graphic.drawPic(canvas, how, 200, 300, rot, 255, paint);//Ã¸¹Ï½d¨Ò_±ÛÂà
+			Graphic.drawPic(canvas, how, 200, 300, rot, 255, paint);//ç¹ªåœ–ç¯„ä¾‹_æ—‹è½‰
 			rot+=5;
 			if(rot%360==0&&rot!=0)
 				rot=0;*/
@@ -91,16 +91,16 @@ implements SurfaceHolder.Callback{
 		}
 	}
 	@Override
-	public boolean onTouchEvent(MotionEvent event){//Ä²±±¨Æ¥ó
+	public boolean onTouchEvent(MotionEvent event){//è§¸æ§äº‹ä»¶
 		pointx=(int) event.getX();
 		pointy=(int) event.getY();
 		
 			switch(event.getAction())
 			{
-			case MotionEvent.ACTION_DOWN://«ö¤U
+			case MotionEvent.ACTION_DOWN://æŒ‰ä¸‹
 				
 				break;
-			case MotionEvent.ACTION_UP://©ï°_
+			case MotionEvent.ACTION_UP://æŠ¬èµ·
 			
 				break;
 			}
@@ -113,7 +113,7 @@ implements SurfaceHolder.Callback{
 
 	}
 
-	public void surfaceDestroyed(SurfaceHolder arg0) {//¾P·´®É³Q©I¥s
+	public void surfaceDestroyed(SurfaceHolder arg0) {//éŠ·æ¯€æ™‚è¢«å‘¼å«
 		Constant.Flag=false;
 	}
 

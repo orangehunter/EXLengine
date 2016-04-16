@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -21,107 +24,90 @@ public class MainActivity extends Activity {
 	MainView mainview;
 	Aview aview;
 
+	SurfaceView ViewList[]={mainview,aview};
 	Intent intent;
 	Intent deintent;
 
-	public void changeView(int what)//¤Á´«Serface°T®§µo°e
+	public void changeView(int what)//å¾žå„å€‹SurfaceViewå‚³é€è¨Šæ¯
 	{
 		Message msg = myHandler.obtainMessage(what);
 		myHandler.sendMessage(msg);
 		nowView =what;
-	} 
-	
-	Handler myHandler = new Handler(){//±µ¦¬¦U­ÓSurfaceView¶Ç°eªº°T®§
-		public void handleMessage(Message msg) {
-			switch(msg.what)
-			{
-			case 0:
-				goToMainView();
-				break;
-			case 1:
-				goToAview();
-				break;
-		
-			}
-		}
-	};
-	
-	private void goToMainView() {
-		if(mainview==null)
-		{
-			mainview=new MainView(this);
-		}
-		setContentView(mainview);
-		mainview.requestFocus();//¨ú±oµJÂI
-		mainview.setFocusableInTouchMode(true);//³]¬°¥iÄ²±±
-	}
-	private void goToAview() {
-		if(aview==null)
-		{
-			aview=new Aview(this);
-		}
-		setContentView(aview);
-		aview.requestFocus();//¨ú±oµJÂI
-		aview.setFocusableInTouchMode(true);//³]¬°¥iÄ²±±
 	}
 
-	
-	public void callToast(int what)//Toast°T®§¶Ç°e
-	{
-		Message msg = toastHandler.obtainMessage(what);
-		toastHandler.sendMessage(msg);
-	} 
-	Handler toastHandler = new Handler(){//³B²z¦U­ÓSurfaceView¶Ç°eªºToast°T®§
+	Handler myHandler = new Handler(){//è™•ç†å„å€‹SurfaceViewå‚³é€çš„è¨Šæ¯
 		public void handleMessage(Message msg) {
-			switch(msg.what)//
+			int view_num=msg.what;
+			if(ViewList[view_num]==null)
 			{
-			case 0:
-				createToast("");
-				break;
-			case 1:
-				createToast("");
-				break;
-		
+				SurfaceView tmp_view;
+				switch (view_num){
+					case 0:
+						tmp_view=new MainView(MainActivity.this);
+						break;
+					case 1:
+						tmp_view=new Aview(MainActivity.this);
+						break;
+					default:
+						tmp_view=new SurfaceView(MainActivity.this);
+						break;
+				}
+				ViewList[view_num]=tmp_view;
 			}
+			setContentView(ViewList[view_num]);
+			ViewList[view_num].requestFocus();
+			ViewList[view_num].setFocusableInTouchMode(true);
+			Log.e("view load",""+view_num);
+
 		}
 	};
-	public void createToast(String msg){//Åã¥ÜToast
-		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+	public void callToast(String str)//Toastè¨Šè™Ÿç™¼é€
+	{
+		Message msg = toastHandler.obtainMessage(0,str);
+		toastHandler.sendMessage(msg);
+
 	}
+	Handler toastHandler = new Handler(){//ToastæŽ¥æ”¶ä¸¦è§¸ç™¼
+		public void handleMessage(Message msg) {
+			Toast.makeText(MainActivity.this, msg.obj.toString(), Toast.LENGTH_LONG).show();
+		}
+	};
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//´åÀ¸¹Lµ{¤¤¥u®e³\½Õ¾ã¦h´CÅé­µ¶q¡A¦Ó¤£®e³\½Õ¾ã³q¸Ü­µ¶q
+		//æ¸¸æˆ²éŽç¨‹ä¸­åªå®¹è¨±èª¿æ•´å¤šåª’é«”éŸ³é‡ï¼Œè€Œä¸å®¹è¨±èª¿æ•´é€šè©±éŸ³é‡
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);//¥h±¼¼ÐÃD
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);//åŽ»æŽ‰æ¨™é¡Œ
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);//¥h±¼¼ÐÀY
-		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//±j¨î¾î«Ì
-		//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//±j¨îª½«Ì
-		changeView(0);//¶i¤J"0¬É­±"
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);//åŽ»æŽ‰æ¨™é ­
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//å¼·åˆ¶æ©«å±
+		//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//å¼·åˆ¶ç›´å±
+		changeView(0);//é€²å…¥"0"ç•Œé¢
 	}
 	
 	@Override
-	public boolean onKeyDown(int keyCode,KeyEvent e)//«öÁä°»´ú
+	public boolean onKeyDown(int keyCode,KeyEvent e)
 	{
-		if(keyCode==4)//ªð¦^«Ø
+		if(keyCode==4)
 		{
-			switch(nowView)//°»´ú¥Ø«e¤¶­±
+			switch(nowView)
 			{
 			case 1:
 				Constant.Flag=false;
-				this.changeView(0);//¦^¨ì0¬É­±
+				this.changeView(0);
 				break;
 			case 0:
-				System.exit(0);//Â÷¶}´åÀ¸
+				System.exit(0);
 				break;
 
 			}
 			return true;
 		}
-		/*if(keyCode==e.KEYCODE_HOME){//HOMEÁä
+		/*if(keyCode==e.KEYCODE_HOME){
 			 System.exit(0);
 			return true;
 		}*/
@@ -137,20 +123,21 @@ public class MainActivity extends Activity {
 		changeView(nowView);
 		DisplayMetrics dm=new DisplayMetrics();
 		if(Build.VERSION.SDK_INT>=19){
+			this.getWindow().getDecorView();
 			getWindow().getDecorView().setSystemUiVisibility(
-					this.getWindow().getDecorView().SYSTEM_UI_FLAG_LAYOUT_STABLE
-							| this.getWindow().getDecorView().SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-							| this.getWindow().getDecorView().SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-							| this.getWindow().getDecorView().SYSTEM_UI_FLAG_HIDE_NAVIGATION
-							| this.getWindow().getDecorView().SYSTEM_UI_FLAG_FULLSCREEN
-							| this.getWindow().getDecorView().SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-							| this.getWindow().getDecorView().INVISIBLE);
+					View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+							| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+							| View.INVISIBLE);
 			getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 		}else{
-			//¨ú±o¸ÑªR«×
+			//å–å¾—è§£æžåº¦
 			getWindowManager().getDefaultDisplay().getMetrics(dm);
 		}
-		//µ¹±`¼ÆÃþ§O¤¤ªº¿Ã¹õ°ª©M¼eµ¹¤©­È
+		//çµ¦å¸¸æ•¸é¡žåˆ¥ä¸­çš„èž¢å¹•é«˜å’Œå¯¬çµ¦äºˆå€¼
 		if(dm.widthPixels>dm.heightPixels)
 		{
 			Constant.SYSTEM_WIDTH=dm.widthPixels;
@@ -160,12 +147,12 @@ public class MainActivity extends Activity {
 			Constant.SYSTEM_HIGHT=dm.widthPixels;
 			Constant.SYSTEM_WIDTH=dm.heightPixels;
 		}
-		if(Constant.SYSTEM_HIGHT>Constant.SYSTEM_WIDTH/16*9) {//±N¿Ã¹õ©T©w¬°16:9
-			Constant.SCREEN_HIGHT = Constant.SYSTEM_WIDTH / 16 * 9;//Y®y¼Ð®Õ¥¿
+		if(Constant.SYSTEM_HIGHT>Constant.SYSTEM_WIDTH/16*9) {//å°‡èž¢å¹•å›ºå®šç‚º16:9
+			Constant.SCREEN_HIGHT = Constant.SYSTEM_WIDTH / 16 * 9;//Yåº§æ¨™æ ¡æ­£
 			Constant.SCREEN_WIDTH=Constant.SYSTEM_WIDTH;
 		}
 		else{
-			Constant.SCREEN_WIDTH = Constant.SYSTEM_HIGHT / 9 * 16;//X®y¼Ð®Õ¥¿
+			Constant.SCREEN_WIDTH = Constant.SYSTEM_HIGHT / 9 * 16;//Xåº§æ¨™æ ¡æ­£
 			Constant.SCREEN_HIGHT=Constant.SYSTEM_HIGHT;
 		}
 
