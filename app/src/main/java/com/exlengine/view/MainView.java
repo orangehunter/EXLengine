@@ -1,4 +1,4 @@
-package com.exlengine;
+package com.exlengine.view;
 
 
 
@@ -6,7 +6,6 @@ package com.exlengine;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +15,12 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.exlengine.ui_script.Botton;
+import com.exlengine.Constant;
+import com.exlengine.MainActivity;
+import com.exlengine.R;
+import com.exlengine.script.Graphic;
 
 @SuppressLint({ "ViewConstructor", "WrongCall", "ClickableViewAccessibility" })
 public class MainView extends SurfaceView
@@ -47,7 +52,7 @@ implements SurfaceHolder.Callback{
 		paint.setAntiAlias(true);//開啟抗鋸齒
 		//=============圖片載入==================
 		Resources rs=activity.getResources();//取得activity資源
-		how=Graphic.LoadBitmap(rs,R.mipmap.ic_launcher,200,200);
+		how= Graphic.LoadBitmap(rs, R.mipmap.ic_launcher,200,200);
 		int bottonSize=180;
 		int btn_first=130,btm_dis=270;
 		r=Graphic.LoadBitmap(rs,R.drawable.bottom_round,bottonSize,bottonSize);

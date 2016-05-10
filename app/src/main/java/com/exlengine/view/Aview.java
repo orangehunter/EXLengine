@@ -1,4 +1,4 @@
-package com.exlengine;
+package com.exlengine.view;
 
 
 import android.annotation.SuppressLint;
@@ -11,6 +11,11 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.exlengine.Constant;
+import com.exlengine.MainActivity;
+import com.exlengine.R;
+import com.exlengine.script.Graphic;
 
 @SuppressLint({ "ViewConstructor", "WrongCall" })
 public class Aview extends SurfaceView
@@ -40,7 +45,7 @@ implements SurfaceHolder.Callback{
 		paint = new Paint();//建立畫筆
 		paint.setAntiAlias(true);//開啟抗鋸齒
 		//=============圖片載入==================
-		how=Graphic.bitSize(LoadBitmap(R.mipmap.ic_launcher),100, 100);
+		how= Graphic.bitSize(LoadBitmap(R.mipmap.ic_launcher),100, 100);
 		//=====================================
 		Constant.Flag=true;
 		//=============螢幕刷新=================================================

@@ -1,4 +1,6 @@
-package com.exlengine;
+package com.exlengine.script;
+
+import com.exlengine.Constant;
 
 public class Coordinate {
 	static float GAME_WIDTH_UNIT=(float) (Constant.SCREEN_WIDTH/1280.0);
@@ -17,7 +19,7 @@ public class Coordinate {
 	public static int DeCoordinateY(float y){
 		return  (int)(y/SCREEN_HEIGHT_UNIT);
 	}
-	
+
 	public static int AnalogSpeedMove(int now,int tomove){
 		if(now>tomove){
 			if(now-tomove>20)

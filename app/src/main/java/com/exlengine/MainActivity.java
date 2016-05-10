@@ -18,6 +18,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.exlengine.view.Aview;
+import com.exlengine.view.MainView;
+
 @SuppressLint("HandlerLeak")
 public class MainActivity extends Activity {
 	int nowView =0;
@@ -79,16 +82,21 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//游戲過程中只容許調整多媒體音量，而不容許調整通話音量
+		//游戲過程中只能調整多媒體音量
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉標題
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉標頭
-		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//強制橫屏
-		//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//強制直屏
+		Constant.landScape=true;//設定 橫屏/直屏
+		if (Constant.landScape) {
+			this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//強制橫屏
+		}else {
+			this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//強制直屏
+		}
 		changeView(0);//進入"0"界面
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode,KeyEvent e)
 	{
@@ -96,13 +104,13 @@ public class MainActivity extends Activity {
 		{
 			switch(nowView)
 			{
-			case 1:
-				Constant.Flag=false;
-				this.changeView(0);
-				break;
-			case 0:
-				System.exit(0);
-				break;
+				case 1:
+					Constant.Flag=false;
+					this.changeView(0);
+					break;
+				case 0:
+					System.exit(0);
+					break;
 
 			}
 			return true;
@@ -147,6 +155,7 @@ public class MainActivity extends Activity {
 			Constant.SYSTEM_HIGHT=dm.widthPixels;
 			Constant.SYSTEM_WIDTH=dm.heightPixels;
 		}
+
 		if(Constant.SYSTEM_HIGHT>Constant.SYSTEM_WIDTH/16*9) {//將螢幕固定為16:9
 			Constant.SCREEN_HIGHT = Constant.SYSTEM_WIDTH / 16 * 9;//Y座標校正
 			Constant.SCREEN_WIDTH=Constant.SYSTEM_WIDTH;
@@ -156,6 +165,7 @@ public class MainActivity extends Activity {
 			Constant.SCREEN_HIGHT=Constant.SYSTEM_HIGHT;
 		}
 
+		Constant.setDefultScale();
 		Constant.SCREEN_WIDTH_UNIT = ((float)Constant.SCREEN_WIDTH/Constant.DEFULT_WIDTH);
 		Constant.SCREEN_HEIGHT_UNIT= ((float)Constant.SCREEN_HIGHT/Constant.DEFULT_HIGHT);
 		super.onResume();

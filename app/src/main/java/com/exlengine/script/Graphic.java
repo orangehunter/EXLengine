@@ -1,4 +1,4 @@
-package com.exlengine;
+package com.exlengine.script;
 
 
 import android.content.res.Resources;
@@ -8,6 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
+
+import com.exlengine.script.Coordinate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,8 +48,8 @@ public class Graphic {
             }else {
                 options.inPreferredConfig= Bitmap.Config.RGB_565;
             }
-            options.inPurgeable = true;
-            options.inInputShareable = true;
+            //options.inPurgeable = true;
+            //options.inInputShareable = true;
             options.inSampleSize = scale;
 		 Bitmap s= BitmapFactory.decodeStream(inputStream, null, options);
 		    return Bitmap.createScaledBitmap(s, (int) Coordinate.CoordinateX(x), (int) Coordinate.CoordinateY(y), true);
@@ -57,7 +59,7 @@ public class Graphic {
 		}
 		//return BitmapFactory.decodeResource(getResources(), r);
 	}
-	static Bitmap LoadBitmap(Resources rs,int r,int x,int y){
+	public static Bitmap LoadBitmap(Resources rs, int r, int x, int y){
 		InputStream inputStream = rs.openRawResource(r);
 		BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
         bmpFactoryOptions.inJustDecodeBounds = true;
@@ -90,16 +92,16 @@ public class Graphic {
         }
      return bitmap;
 	}
-	static BitmapFactory.Options getBitmapOptions(int scale){
+    public static BitmapFactory.Options getBitmapOptions(int scale){
 	    BitmapFactory.Options options = new BitmapFactory.Options();
 	    options.inJustDecodeBounds=false;
 		options.inPreferredConfig= Bitmap.Config.ARGB_4444;
-	    options.inPurgeable = true;
-	    options.inInputShareable = true;
+	    //options.inPurgeable = true;
+	    //options.inInputShareable = true;
 	    options.inSampleSize = scale;
 	    return options;
 	}
-	static Bitmap bitSize(Bitmap bf,int f,int g){//圖片縮放
+    public static Bitmap bitSize(Bitmap bf,int f,int g){//圖片縮放
 		int bw=0;
 		int bh=0;
 		float scaleWidth=0;
@@ -147,7 +149,11 @@ public class Graphic {
 		paint.reset();
 	}
 
-	public static void drawLine(Canvas canvas, int color, int start_x, int start_y, int end_x, int end_y, int with, Paint paint){
+    public static void drawSprite(){
+
+    }
+
+    public static void drawLine(Canvas canvas, int color, int start_x, int start_y, int end_x, int end_y, int with, Paint paint){
 		paint.setColor(color);
 		paint.setStrokeWidth(with);
 		canvas.drawLine(Coordinate.CoordinateX(start_x), Coordinate.CoordinateY(start_y), Coordinate.CoordinateX(end_x),Coordinate.CoordinateY( end_y), paint);

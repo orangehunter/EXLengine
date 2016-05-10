@@ -1,8 +1,10 @@
-package com.exlengine;
+package com.exlengine.ui_script;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.exlengine.script.Graphic;
 
 public class smallAnimax {
 	
@@ -24,35 +26,35 @@ public class smallAnimax {
 		this.pic=pic;
 		this.pic_number=this.pic.length;
 	}
-	public void setDuration(int duration){//³]©wªø«×
+	public void setDuration(int duration){//ï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½
 		this.duration=duration;
 		this.count_unit=(pic_number*1.0)/(this.duration*1.0);
 	}
-	public void setPosition(int x,int y){//³]©w¦ì¸m
+	public void setPosition(int x,int y){//ï¿½]ï¿½wï¿½ï¿½m
 		this.x=x;
 		this.y=y;
 	}
-	public void start(int CurrentPosition){//±Ò°Ê(¦³³]©wªø«×)
+	public void start(int CurrentPosition){//ï¿½Ò°ï¿½(ï¿½ï¿½ï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½)
 		this.start_position=CurrentPosition;
 		animax_flag=true;
 	}
-	public void start(){//±Ò°Ê(µL³]©wªø«×)
+	public void start(){//ï¿½Ò°ï¿½(ï¿½Lï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½)
 		animax_flag=true;
 		 animax_count_flag=0;	
 	}
-	public void pause(){//¼È°±
+	public void pause(){//ï¿½È°ï¿½
 		pause_flag=true;
 	}
-	public void resume(){//¨ú®ø¼È°±
+	public void resume(){//ï¿½ï¿½ï¿½ï¿½ï¿½È°ï¿½
 	pause_flag=false;		
 	}
-	public boolean getPause(){//¨ú±o¼È°±ª¬ºA
+	public boolean getPause(){//ï¿½ï¿½ï¿½oï¿½È°ï¿½ï¿½ï¿½ï¿½A
 		return pause_flag;
 	}
 	public int getCount(){
 		return (int)animax_count_flag;
 	}
-	public void drawEffect_time(int CurrentPosition,Canvas canvas,Paint paint){//Ã¸¹Ï(¦³³]©wªø«×){
+	public void drawEffect_time(int CurrentPosition,Canvas canvas,Paint paint){//Ã¸ï¿½ï¿½(ï¿½ï¿½ï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½){
 		if(animax_flag){
 			animax_count_flag=count_unit*(CurrentPosition-start_position);
 			if(((int)animax_count_flag)<pic_number){
@@ -62,7 +64,7 @@ public class smallAnimax {
 			}
 		}
 	}
-	public void drawEffect(double speed,Canvas canvas,Paint paint){//Ã¸¹Ï(µL³]©wªø«×)
+	public void drawEffect(double speed,Canvas canvas,Paint paint){//Ã¸ï¿½ï¿½(ï¿½Lï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½)
 		if(animax_flag){
 			if(!pause_flag){
 			animax_count_flag+=speed;

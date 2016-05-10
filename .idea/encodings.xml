@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/Aview.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/MainActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/MainView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/ui_script/smallAnimax.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/view/Aview.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/exlengine/view/MainView.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

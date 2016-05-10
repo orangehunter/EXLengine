@@ -1,8 +1,12 @@
-package com.exlengine;
+package com.exlengine.ui_script;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.exlengine.MainActivity;
+import com.exlengine.script.Coordinate;
+import com.exlengine.script.Graphic;
 
 
 public class Botton {
@@ -77,7 +81,7 @@ public class Botton {
 			width = offBitmap.getWidth();
 			height = offBitmap.getHeight();
 		}
-		x=Coordinate.CoordinateX(center_x)-(width/2);
+		x= Coordinate.CoordinateX(center_x)-(width/2);
 		y=Coordinate.CoordinateY(center_y)-(height/2);
 		if(pointx>=x&&pointx<=x+width&&      	pointy>=y&&pointy<=y+height)
 			return true;
